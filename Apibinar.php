@@ -1,6 +1,6 @@
 <?php
 
-	function get menu() {
+	function menu() {
 		$this->db->join('productdetail pd', 'pd.productid = product.id');
 		$data = $this->db->get('product');
 		if ($data->num_rows() > 0){
@@ -13,19 +13,17 @@
 			}		
 		}
 		
-		if ($product != NULL) {
-			$response = array('error' => false, 'msg' => 'Sukses.', 'data' => $product);
+		if ($data != NULL) {
+			$response = array('error' => false, 'msg' => 'Sukses.', 'data' => $data);
 		}
 		else{
 			$response = array('error' => true, 'msg' => 'Data Product kosong.');
 		}
 		
-		$data_json=json_encode($response);
-		$product_json = str_replace('\/', '/', $data_json);
-		echo $product_json;	
+		echo json_encode($response);
 	}
 	
-	function order pesanan() {
+	function pesanan() {
 		$this->MSessionLogin->session_login();
 	    $customer_id = $this->session->userdata('id');
 		$product_no = $this->input->post('productno');
@@ -48,7 +46,7 @@
 		{
 			foreach($order_no->num_rows() as $key)
 			{
-				$i++
+				$i++;
 			}
 			$orderno = $product_no . date("dmy") .$i;
 		}
@@ -63,19 +61,25 @@
 		'telephone' => $telephone,
 		'alamat' => $alamat,
 		'notes' => $note,
-		'totalhargaorder' = > $harga,
+		'totalhargaorder' => $harga,
 		'totaldiskonorder' => $totaldiskon,
 		'orderstatus' => 'DIPESAN',
 		'createdby' => $customer_id
 		));
+		
+		if ($query) {
+			echo "Sukses";
+		}else{
+			echo $query->error();
+		}
 	}
 	
-	function konfirmasi order() {
+	function konfirmasiorder() {
 		$adminid = $this->input->post('adminid');
 		$orderno = $this->input->post('orderno');
 		$kuririd = $this->input->post('kuririd');
 		
-		$this->db->select('orderstatus')
+		$this->db->select('orderstatus');
 		$this->db->where('orderno',$orderno);
 		$status_order = $this->db->get('order');
 		
@@ -93,6 +97,12 @@
 				'lastmodifiedtime' => date("dmy"),
 				'lastmodifiedby' => $adminid
 			));
+			
+			if ($query) {
+				echo "Sukses";
+			}else{
+				echo $query->error();
+			}
 		}
 		elseif($status_order == 'DIPROSES')
 		{
@@ -102,7 +112,7 @@
 				'lastmodifiedby' => $adminid
 			));
 			
-			$this->db->select('id')
+			$this->db->select('id');
 			$this->db->where('orderno',$orderno);
 			$order_id = $this->db->get('order');
 			
@@ -110,7 +120,7 @@
 			{
 				foreach($shipment_no->num_rows() as $key)
 				{
-					$i++
+					$i++;
 				}
 				$shipment_no = $product_no . date("dmy") .$i;
 			}
@@ -125,11 +135,16 @@
 			'telephone' => $telephone,
 			'alamat' => $alamat,
 			'notes' => $note,
-			'totalhargaorder' = > $harga,
+			'totalhargaorder' => $harga,
 			'totaldiskonorder' => $totaldiskon,
 			'orderstatus' => 'DIPESAN',
 			'createdby' => $customer_id
 			));
+			if ($query) {
+				echo "Sukses";
+			}else{
+				echo $query->error();
+			}
 		}
 		elseif($status_order == 'DIKIRIM')
 		{
@@ -138,8 +153,12 @@
 				'lastmodifiedtime' => date("dmy"),
 				'lastmodifiedby' => $kuririd
 			));
+			
+			if ($query) {
+				echo "Sukses";
+			}else{
+				echo $query->error();
+			}
 		}
 	}
-	
-	
-}
+?>
