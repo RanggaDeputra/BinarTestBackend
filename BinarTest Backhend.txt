@@ -1,0 +1,11 @@
+Analisis https://testbinar.docs.apiary.io/#
+
+Menurut saya dokumentasi tersebut secara code mudah untuk dibaca dan juga dipahami, akan lebih baik jika diberikan beberapa catatan mengenai cara kerja code, cara penggunaan dan cara instalasi code.
+Dikarenakan dalam perkembangannya code yang dirancang diharapkan dapat dikembangkan lebih lanjut menjadi lebih baik lagi, dan jikalau ada beberapa kekurangan dan kelemahan dari code tersebut dapat langsung diketahui oleh develop yang baru.
+Akan lebih tertata jikalau ada sebuah log yang digunakan sebagai history jika ada perubahan yang terjadi, dari before hingga after dari code tersebut.
+Oleh karena itu programmer yang akan melanjutkan pengembangan code perlu mengetahui informasi-informasi mengenai mengapa code tersebut dibuat dan bagaiman cara kerjanya.
+Supaya tidak terjadi kesalahan persepsi atas pembuatan code tersebut.
+Jika dilihat kembali tidak ada perubahan terhadap Testing API untuk Show Data V1 dan juga Show Data Testing API V2, tidak terlihat perbedaan dari kedua code tersebut, sehingga memang diperlukan penjelasan mengenai alasan-alasan pembuatan code baru tersebut dan perbedaan code tersebut.
+
+Beberapa saran yang dapat saya berikan yakni mengenai pengiriman ID data yang melalui URL dapat terlebih dahulu di enkripsi dan tidak muncul di URL secara jelas, dikarenakan akan sekali rentan jika dilakukan SQL Injection.
+Selain itu dalam pengiriman data - data password akan lebih baik dilakukan enkripsi sebelum dilakukan password_digest, hal tersebut dilakukan untuk menghindari pembajakan password ketika dikirimkan ke API, karena pada code sekarang password terlihat jelas saat dikirimkan.
